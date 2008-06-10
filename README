@@ -1,0 +1,10 @@
+== About
+
+Radiant CMS extension that allows caching of fragments within a page or layout.
+
+== Usage
+
+<r:cache name="cache name" [time="30"]>...</r:cache>
+
+'name' should be unique for that cached content.
+'time' may be supplied (in minutes) to specify how long the cache should be used for - the default is 30 minutes.
