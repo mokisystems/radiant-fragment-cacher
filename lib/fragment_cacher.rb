@@ -14,13 +14,12 @@ module FragmentCacher
     nil
   end
 
-
   desc %{
     Caches a block of content for a configurable time period. A unique 'name' is required.
     An optional 'time' may be supplied (in minutes) to specify how long the cache should
     be used for - the default is 30 minutes.
 
-    All cached fragments are expired whenever Radiant clears the page cache.
+    All cached fragments are expired whenever a Page, Snippet or Layout is saved.
     
     *Usage*:
     
@@ -32,7 +31,7 @@ module FragmentCacher
     # Default time to 30 minutes
     attr[:time] = attr[:time].to_i
     attr[:time] = 30 if attr[:time].blank? || attr[:time] <= 0
-    cache_file = File.join(ActionController::Base.page_cache_directory, "_fragment_#{attr[:name].tr('.:/\ ','_')}")
+    cache_file = File.join(RAILS_ROOT + "/tmp/fragment_cache", "_fragment_#{attr[:name].tr('.:/\ ','_')}")
     if read_metadata(cache_file)
       # Return the cached version
       return File.open("#{cache_file}.data", "rb") {|f| f.read}
@@ -44,5 +43,5 @@ module FragmentCacher
       return content
     end    
   end
- 
+
 end
