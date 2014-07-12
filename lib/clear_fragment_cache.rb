@@ -11,7 +11,7 @@ module ClearFragmentCache
   end
 
   def self.included(base)
-    base.extend(ClassMethods).callbacks
+    base.extend(ClassMethods).callbacks if base < ActiveRecord::Base
   end
 
 end
